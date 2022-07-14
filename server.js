@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(express.static(__dirname + '/public'))
 
 
-MongoClient.connect(CONNECTIONSTRING, {useUnifiedTopology : true})
+MongoClient.connect(dbConnectionString, {useUnifiedTopology : true})
     .then(client => {
         console.log('Connected to database')
         const db = client.db('cuecard')
