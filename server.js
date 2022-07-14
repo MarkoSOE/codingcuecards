@@ -2,7 +2,8 @@ const express = require('express');
 const MongoClient = require('mongodb').MongoClient
 const app = express();
 const PORT = 3001;
-const CONNECTIONSTRING = "mongodb+srv://cuecard:cuecard@cluster0.n5vdy.mongodb.net/?retryWrites=true&w=majority"
+require('dotenv').config()
+let dbConnectionString = process.env.DB_STRING
 
 app.set('views', __dirname + '/views/')
 app.set('view engine', 'ejs')
