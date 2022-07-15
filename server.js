@@ -2,29 +2,34 @@ const express = require('express');
 const MongoClient = require('mongodb').MongoClient
 const app = express();
 const PORT = 3001;
-require('dotenv').config()
+const dotenv = require('dotenv')
+dotenv.config()
 
-let dbName = 'cuecard'
-let dbConnectionString = process.env.DB_STRING
+let db,
+    dbConnectionStr = process.env.DB_STRING,
+    dbName = 'cuecard'
 
-app.set('views', __dirname + '/views/')
-app.set('view engine', 'ejs')
-
-app.use(express.json())
-app.use(express.static(__dirname + '/public'))
-
-
-MongoClient.connect(dbConnectionString, {useUnifiedTopology : true})
+MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
     .then(client => {
         console.log('Connected to database')
-        const db = client.db(dbName)
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`)
-        })
+        db = client.db(dbName)
     })
     .catch(error => console.error(error))
+    
+app.set('views', __dirname + '/views/')
+app.set('view engine', 'ejs')
+app.use(express.json())
+app.use(express.static(__dirname + '/public'))
+    
+app.get('/', (request, response) => {
+    console.log('jeje')
+    db.collection('cuecardquestions').find().toArray()
+    .then(results => {
+        console.log(results)
+    })
+    .catch(error => console.error(error))
+})
 
-
-// app.get('/', (request,response) => {
-//     response.sendFile(__dirname + 'index.html')
-// })
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+})
