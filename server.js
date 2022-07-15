@@ -22,10 +22,9 @@ app.use(express.json())
 app.use(express.static(__dirname + '/public'))
     
 app.get('/', (request, response) => {
-    console.log('jeje')
     db.collection('cuecardquestions').find().toArray()
-    .then(results => {
-        console.log(results)
+    .then(data => {
+        response.render('index.ejs', { info:data })
     })
     .catch(error => console.error(error))
 })
