@@ -2,12 +2,15 @@ const express = require('express');
 const MongoClient = require('mongodb').MongoClient
 const app = express();
 const PORT = 3001;
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+const { ObjectId, Collection } = require('mongodb');
+const bodyParser = require('body-parser');
 dotenv.config()
 
 let db,
     dbConnectionStr = process.env.DB_STRING,
-    dbName = 'cuecard'
+    dbName = 'cuecard',
+    dbCollection = 'cuecardquestions'
 
 MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
     .then(client => {
@@ -18,15 +21,26 @@ MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
     
 app.set('views', __dirname + '/views/')
 app.set('view engine', 'ejs')
-app.use(express.json())
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'))
     
-app.get('/', (request, response) => {
+app.get('/getQuestions', (request, response) => {
     db.collection('cuecardquestions').find().toArray()
     .then(data => {
-        response.render('index.ejs', { info:data })
+        //select random question
+        function randomIntFromInterval(min, max) { // min and max included 
+            return Math.floor(Math.random() * (max - min + 1) + min)
+          }
+        const rndInt = randomIntFromInterval(0, data.length-1)
+        console.log([data[rndInt]])
+        response.render('index.ejs', { info:[data[rndInt]]})
     })
     .catch(error => console.error(error))
+})
+
+app.get('/', (request, response) => {
+    response.sendFile(__dirname + '/index.html')
 })
 
 app.listen(process.env.PORT || PORT, () => {
