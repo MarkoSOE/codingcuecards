@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <link
     rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <header>
@@ -23,7 +24,7 @@
     <section>
         <form action="/getQuestions" method="get" id="questionForm">
             <button type="submit" class="pushable">
-                <span class="front"> Push </span>
+                <span class="front"> Get random interview question </span>
             </button>
         </form>
     </section>
@@ -33,12 +34,12 @@
         </section>
         <section>
             <% for(let i=0; i < info.length; i++)  {%>
-                <section class="animate__animated animate__bounce">
+                <section class="animate__animated animate__bounceIn">
                     <header class="cue">
-                        <h2 class="cue"> <%= info[i].type %>  </h2>
+                        <h3 class="cue"> <%= info[i].question %> </h3>
                     </header>
                     <footer class="cue">
-                        <h3 class="cue"> <%= info[i].question %> </h3>
+                        <h2 class="cue"> <%= info[i].type.toUpperCase() %>  </h2>
                     </footer>
                 </section> 
             <% } %>

@@ -1,19 +1,33 @@
 *{
     background-color: lightgrey;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 16px;
+    font-family: "Oxygen", sans-serif;
 }
 
 body > header, body > footer{
     min-height: 150px;
 }
 h1{
-    size: 5em;
+    font-size: 300%;
+    font-weight: bold;
+    margin-top: 10px;
 }
+
+h2{
+    text-align: right;
+    font-size: 12px;
+}
+
 section{
     text-align: center;
 }
 
 .pushable {
-    background: hsl(340deg 100% 32%);
+    background: hsla(183, 100%, 30%, 0.6);
     border-radius: 12px;
     border: none;
     padding: 0;
@@ -22,12 +36,14 @@ section{
 }
 
 .front {
+    font-weight: bold;
     display: block;
     padding: 12px 42px;
     border-radius: 12px;
+    border: 2px solid rgb(104, 176, 181);
     font-size: 1.25rem;
-    background: hsl(345deg 100% 47%);
-    color: white;
+    background: hsl(170, 11%, 98%);
+    color: hsla(183, 100%, 30%, 0.6);
     transform: translateY(-6px);
 }
 
@@ -46,16 +62,18 @@ section > section{
 }
 
 section > section:first-of-type + section > section {
-    background-color: aliceblue;
+    background-color: hsla(183, 100%, 30%, 0.6);
     border-radius: 25px;
 }
 
 section > header, section > footer {
-    padding: 10px;
+    padding: 20px;
 }
 
 .cue {
     background-color: transparent;
+    color: white;
+
 }
 
 form {
