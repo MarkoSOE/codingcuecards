@@ -5,24 +5,25 @@ const PORT = 3001;
 const dotenv = require('dotenv');
 const { ObjectId, Collection } = require('mongodb');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose')
 dotenv.config()
 
+app.set('views', __dirname + '/views/')
+app.set('view engine', 'ejs')
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/public'))
+
 let db,
-    dbConnectionStr = process.env.DB_STRING,
-    dbName = 'cuecard'
+dbConnectionStr = process.env.DB_STRING,
+dbName = 'cuecard'
 
 MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
     .then(client => {
         console.log('Connected to database')
         db = client.db(dbName)
-        
-        app.set('views', __dirname + '/views/')
-        app.set('view engine', 'ejs')
-        app.use(express.json()); 
-        app.use(express.urlencoded({ extended: true }));
-        app.use(express.static(__dirname + '/public'))
-            
-        app.get('/getQuestions', (request, response) => {
+
+        app.get('/getQuestions', async function (request, response){
             db.collection('cuecardquestions').find().toArray()
             .then(data => {
                 //select random question
