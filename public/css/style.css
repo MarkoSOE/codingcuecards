@@ -73,6 +73,7 @@ section > header, section > footer {
 .cue {
     background-color: transparent;
     color: white;
+    font-weight: bold;
 
 }
 
