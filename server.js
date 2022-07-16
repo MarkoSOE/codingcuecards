@@ -25,7 +25,7 @@ MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
     })
     .catch(error => console.error(error))
     
-    app.get('/getQuestions', async function (request, response){
+    app.get('/getQuestions', (request, response) =>{
         db.collection('cuecardquestions').find().toArray()
         .then(data => {
             //select random question
@@ -41,7 +41,7 @@ MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
     app.get('/', (request, response) => {
         response.sendFile(__dirname + '/index.html')
     })
-    
+
     app.listen(process.env.PORT || PORT, () => {
         console.log(`Server running on port ${PORT}`)
     })
