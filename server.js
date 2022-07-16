@@ -9,8 +9,7 @@ dotenv.config()
 
 let db,
     dbConnectionStr = process.env.DB_STRING,
-    dbName = 'cuecard',
-    dbCollection = 'cuecardquestions'
+    dbName = 'cuecard'
 
 MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
     .then(client => {
@@ -33,7 +32,6 @@ app.get('/getQuestions', (request, response) => {
             return Math.floor(Math.random() * (max - min + 1) + min)
           }
         const rndInt = randomIntFromInterval(0, data.length-1)
-        console.log([data[rndInt]])
         response.render('index.ejs', { info:[data[rndInt]]})
     })
     .catch(error => console.error(error))
