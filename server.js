@@ -25,23 +25,24 @@ MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
     })
     .catch(error => console.error(error))
     
-    app.get('/getQuestions', (request, response) =>{
-        db.collection('cuecardquestions').find().toArray()
-        .then(data => {
-            //select random question
-            function randomIntFromInterval(min, max) { // min and max included 
-                return Math.floor(Math.random() * (max - min + 1) + min)
-              }
-            const rndInt = randomIntFromInterval(0, data.length-1)
-            response.render('index.ejs', { info:[data[rndInt]]})
-        })
-        .catch(error => console.error(error))
+app.get('/getQuestions', (request, response) =>{
+    db.collection('cuecardquestions').find().toArray()
+    .then(data => {
+        // console.log(data)
+        //select random question
+        function randomIntFromInterval(min, max) { // min and max included 
+            return Math.floor(Math.random() * (max - min + 1) + min)
+            }
+        const rndInt = randomIntFromInterval(0, data.length-1)
+        response.render('index.ejs', { info:[data[rndInt]]})
     })
-    
-    app.get('/', (request, response) => {
-        response.sendFile(__dirname + '/index.html')
-    })
+    .catch(error => console.error(error))
+})
 
-    app.listen(process.env.PORT || PORT, () => {
-        console.log(`Server running on port ${PORT}`)
-    })
+app.get('/', (request, response) => {
+    response.sendFile(__dirname + '/index.html')
+})
+
+app.listen(process.env.PORT || PORT, () => {
+    console.log(`Server running on port ${PORT}`)
+})
