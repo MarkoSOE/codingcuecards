@@ -3,10 +3,9 @@ const MongoClient = require('mongodb').MongoClient
 const app = express();
 const PORT = 3001;
 const dotenv = require('dotenv');
+dotenv.config()
 const { ObjectId, Collection } = require('mongodb');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose')
-dotenv.config()
 
 app.set('views', __dirname + '/views/')
 app.set('view engine', 'ejs')
