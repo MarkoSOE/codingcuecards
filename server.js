@@ -6,12 +6,16 @@ const dotenv = require('dotenv');
 dotenv.config()
 const { ObjectId, Collection } = require('mongodb');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 app.set('views', __dirname + '/views/')
 app.set('view engine', 'ejs')
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'))
+app.use(cors({
+    origin: "https://interviewprepapp.herokuapp.com/"
+}))
 
 let db,
 dbcollection,
