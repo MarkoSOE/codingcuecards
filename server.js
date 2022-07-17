@@ -22,18 +22,19 @@ MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
     .then(client => {
         console.log('Connected to database')
         db = client.db(dbName)
-        app.get('/getQuestions', (request, response) =>{
-            db.collection('cuecardquestions').find().toArray()
-            .then(data => {
-                // console.log(data)
+        app.get('/getQuestions', async (request, response) =>{
+            try{
+                const data = await db.collection('cuecardquestions').find().toArray()
                 //select random question
                 function randomIntFromInterval(min, max) { // min and max included 
                     return Math.floor(Math.random() * (max - min + 1) + min)
                     }
                 const rndInt = randomIntFromInterval(0, data.length-1)
                 response.render('index.ejs', { info:[data[rndInt]]})
-            })
-            .catch(error => console.error(error))
+            }
+            catch(error){
+                response.status(500).json({message: error.message})
+            }
         })
         
         app.get('/', (request, response) => {
