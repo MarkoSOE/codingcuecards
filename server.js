@@ -27,7 +27,7 @@ MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
 
     app.get('/getQuestions', async (request, response) =>{
         try{
-            const data = await dbcollection.find().toArray()
+            const data = await db.collection('cuecardquestions').find().toArray()
             //select random question
             function randomIntFromInterval(min, max) { // min and max included 
                 return Math.floor(Math.random() * (max - min + 1) + min)
