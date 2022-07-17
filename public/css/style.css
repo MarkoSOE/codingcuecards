@@ -58,10 +58,9 @@ body > section:first-of-type + section + section{
 section > section{
     margin-top: 50px;
     flex: 1 1 0;
-    min-height: 100px;
 }
 
-section > section:first-of-type + section > section {
+section > section:first-of-type + section {
     background-color: hsla(183, 100%, 30%, 0.6);
     border-radius: 25px;
 }
@@ -74,7 +73,6 @@ section > header, section > footer {
     background-color: transparent;
     color: white;
     font-weight: bold;
-
 }
 
 form {
