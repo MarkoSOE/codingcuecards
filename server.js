@@ -14,19 +14,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'))
 
 let db,
-db2,
+dbcollection,
 dbConnectionStr = process.env.DB_STRING,
 dbName = 'cuecard'
 
 MongoClient.connect(dbConnectionStr, {useUnifiedTopology : true})
     .then(client => {
         console.log('Connected to database')
-        db2 = client.db(dbName)
+        db = client.db(dbName)
+        dbcollection = client.db('cuecard').collection('cuecardquestions')
     }).catch(error => console.error(error))
 
     app.get('/getQuestions', async (request, response) =>{
         try{
-            const data = await db2.collection('cuecardquestions').find().toArray()
+            const data = await dbcollection.find().toArray()
             //select random question
             function randomIntFromInterval(min, max) { // min and max included 
                 return Math.floor(Math.random() * (max - min + 1) + min)
